@@ -20,7 +20,7 @@ body {
   background-color: rgb(5, 5, 5);
   padding-top: 1vh;
   color: white;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .button-container {
   display: flex;
@@ -251,15 +251,33 @@ nav div {
     bottom: 0;
   }
 }
-
-
-
+#fullscreenBtn {
+  background-color: red;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  border: solid 1px darkred;
+  box-shadow: 0 0 12px darkred;
+  border-radius: 2rem;
+  padding-inline: 48px;
+  height: 4rem;
+  cursor: pointer;
+}
+.fs-btn-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 </style>
 </head>
 <body>
+  <div class="fs-btn-con">
+  <button id="fullscreenBtn">Start Cable Cam</button>
+  </div>
   <div id="fullscreenElement">
   <main>
-    <button id="fullscreenBtn">go fs</button>
     <div class="container-flex">
       <p class="headline-ccc">Cable Cam Control</p>
       <div class="current"></div>
@@ -288,26 +306,14 @@ nav div {
     </div>
     <div class="tltip-con">
       <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
-      <div class="tltip-con-content"><b>Back</b> = b</div>
+      <div class="tltip-con-content"><b>Back</b> = y</div>
       <div class="tltip-con-content"><b>STOP</b> = [spacebar]</div>
-      <div class="tltip-con-content"><b>Full</b> = f</div>
+      <div class="tltip-con-content"><b>Full</b> = x</div>
       <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
     </div>
     <div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>
   </main>
-  <!--<div class="fixed-boot">
-    <div class="container-for-boot">
-      <div class="headline">Cable Cam Control</div>
-      <div class="credits">
-        <div>UI DESIGN<b> / FELIX NOWAK</b></div>
-        <div>CONTROLLER PROGRAMMING<b> / DAVID OTT</b></div>
-        <div>ELECTRONICAL ENGINEERING<b> / MICHAEL DANISCH</b></div>
-        <div>ELECTRONICAL ENGINEERING<b> / JONATHAN WALLASCH</b></div>
-        <div class="space"></div>
-      </div>
-    </div>
-    <div class="container-loading"><div class="loading-bar"></div></div>
-  </div>-->
+<div class="quarterspace"></div>
   <nav>
     <div><b>UI DESIGN</b> FELIX NOWAK</div>
     <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
@@ -376,7 +382,7 @@ nav div {
     }
     
       document.addEventListener('keydown', function(event) {
-          if (event.key === 'b') {
+          if (event.key === 'y') {
             ofull();
       }
       });
@@ -387,7 +393,7 @@ nav div {
       });
     slider.addEventListener('input', updateCurrentValue);
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'f') {
+      if (event.key === 'x') {
              full()
       }
       });
@@ -433,8 +439,11 @@ nav div {
 </script>
 
 <script>
-  const fullscreenElement = document.getElementById("fullscreenElement");
+const fullscreenElement = document.getElementById("fullscreenElement");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+// Initial hide the fullscreen element
+fullscreenElement.style.display = "none";
 
 fullscreenBtn.addEventListener("click", () => {
     if (fullscreenElement.requestFullscreen) {
@@ -447,9 +456,11 @@ fullscreenBtn.addEventListener("click", () => {
         fullscreenElement.msRequestFullscreen();
     }
 
-    // Button verschwindet nach dem Wechsel in den Vollbildmodus
+    // Button disappears, and the hidden element becomes visible when fullscreen is activated
+    fullscreenElement.style.display = "block";
     fullscreenBtn.style.display = "none";
 });
+
 
 </script>
 
