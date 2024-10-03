@@ -257,7 +257,9 @@ nav div {
 </style>
 </head>
 <body>
+  <div id="fullscreenElement">
   <main>
+    <button id="fullscreenBtn">go fs</button>
     <div class="container-flex">
       <p class="headline-ccc">Cable Cam Control</p>
       <div class="current"></div>
@@ -430,9 +432,27 @@ nav div {
   });
 </script>
 
+<script>
+  const fullscreenElement = document.getElementById("fullscreenElement");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+fullscreenBtn.addEventListener("click", () => {
+    if (fullscreenElement.requestFullscreen) {
+        fullscreenElement.requestFullscreen();
+    } else if (fullscreenElement.mozRequestFullScreen) { // Firefox
+        fullscreenElement.mozRequestFullScreen();
+    } else if (fullscreenElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        fullscreenElement.webkitRequestFullscreen();
+    } else if (fullscreenElement.msRequestFullscreen) { // IE/Edge
+        fullscreenElement.msRequestFullscreen();
+    }
+
+    // Button verschwindet nach dem Wechsel in den Vollbildmodus
+    fullscreenBtn.style.display = "none";
+});
 
 </script>
 
-
+  </div>
 </body>
 </html>
