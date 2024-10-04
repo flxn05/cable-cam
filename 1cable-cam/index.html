@@ -250,32 +250,9 @@ nav div {
     bottom: 0;
   }
 }
-#fullscreenBtn {
-  background-color: red;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  border: solid 1px darkred;
-  box-shadow: 0 0 12px darkred;
-  border-radius: 2rem;
-  padding-inline: 48px;
-  height: 4rem;
-  cursor: pointer;
-}
-.fs-btn-con {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 </style>
 </head>
 <body>
-  <div class="fs-btn-con">
-  <button id="fullscreenBtn">Start Cable Cam</button>
-  </div>
-  <div id="fullscreenElement">
   <main>
     <div class="container-flex">
       <p class="headline-ccc">Cable Cam Control</p>
@@ -435,33 +412,5 @@ nav div {
     }
   });
 </script>
-
-<script>
-const fullscreenElement = document.getElementById("fullscreenElement");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
-
-// Initial hide the fullscreen element
-fullscreenElement.style.display = "none";
-
-fullscreenBtn.addEventListener("click", () => {
-    if (fullscreenElement.requestFullscreen) {
-        fullscreenElement.requestFullscreen();
-    } else if (fullscreenElement.mozRequestFullScreen) { // Firefox
-        fullscreenElement.mozRequestFullScreen();
-    } else if (fullscreenElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        fullscreenElement.webkitRequestFullscreen();
-    } else if (fullscreenElement.msRequestFullscreen) { // IE/Edge
-        fullscreenElement.msRequestFullscreen();
-    }
-
-    // Button disappears, and the hidden element becomes visible when fullscreen is activated
-    fullscreenElement.style.display = "block";
-    fullscreenBtn.style.display = "none";
-});
-
-
-</script>
-
-  </div>
 </body>
 </html>
