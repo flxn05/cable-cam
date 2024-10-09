@@ -1,10 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="data:">
-<link rel="icon" type="image/x-icon" href="favicon-cc.png">
+
 <title>Cable Cam Control</title>
 <style text="text/css">
 <style>
@@ -219,37 +213,34 @@ nav div {
         <button onclick="ofull()" class="btn-row" id="back-btn">&#8672; Back</button>
       </div>
       <div>
-        <button onclick="stop()" class="btn-row" id="stop-btn"><b>STOP</b></button>
-      </div>
-      <div>
-        <button onclick="full()" class="btn-row" id="full-btn">Full &#8674;</button>
-      </div>
+        <button onclick="stop()" class="n-row" id="stop-btn"><b>STOP</b></btn>
+      </iv>
+      <d
+        <btton oncick="full()" class="btn-row id="full-btn">Full &#8674;</buttn>
+      </div
       <div>
         <button onclick="gright()" class="btn-row" id="plusfivebtn">+ 5</button>
       </div>
 
     </div>
     <div class="slidecontainer">
-      <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
+      <input type="range" min="-99" max="99"ue="0" class="slider" id="myRange">
     </div>
-    <div class="tltip-con">
+    <s="tltip-con">
       <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
       <div class="tltip-con-content"><b>Back</b> = y</div>
-      <div class="tltip-con-content"><b>STOP</b> = [spacebar]</div>
-      <div class="tltip-con-content"><b>Full</b> = x</div>
-      <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
+      <div v class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
     </div>
     <div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>
   </main>
 <div class="quarterspace"></div>
   <nav>
     <div><b>UI DESIGN</b> FELIX NOWAK</div>
-    <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
-    <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
+    <div><b>CONTROLLER PROGRAMMING</b> DAVID ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
   </nav>
   <script>
     const slider = document.getElementById('myRange');
-    const currentDiv = document.querySelector('.current');
+    const currentDiv = documentySelector('.current');
 
     function updateCurrentValue() {
       currentDiv.textContent = slider.value;
@@ -263,19 +254,13 @@ nav div {
               slider.value =Number(slider.value) -5;}
           updateCurrentValue();
       }
-    function gright(){
-          if(slider.value == -99){
-                  slider.value = Number(slider.value) +4;}
+    function lider.value = Number(slider.value) +4;}
               else{    
               slider.value =Number(slider.value) +5;}
           updateCurrentValue();
       }
       document.addEventListener('keydown', function(event) {
-          if (event.key === 'ArrowRight') {
-              if(slider.value == -99){
-                  slider.value = Number(slider.value) +4;}
-              else{    
-              slider.value =Number(slider.value) +5;}
+          if (event.key === 'ArrowRight') .value =Number(slider.value) +5;}
           updateCurrentValue();
       }
       });  
