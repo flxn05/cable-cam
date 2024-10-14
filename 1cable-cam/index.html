@@ -22,6 +22,7 @@ body {
 .button-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 5vh;
 }
 .button-container button {
@@ -199,6 +200,20 @@ nav div {
   0% {opacity: 1;}
   100% {opacity: 0; display: none;}
 }
+@keyframes note {
+  0% {opacity: 0;}
+  5% {opacity: 1;}
+  90% {opacity: 1;}
+  98% {opacity: 0;}
+  99% {display: flex; opacity: 0;}
+  100% {display: none; opacity: 0;}
+}
+@keyframes button-focus {
+  0% {background-color: white;}
+  25% {background-color: grey;}
+  75% {background-color: grey;}
+  100% {background-color: white;}
+}
 .headline {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -217,38 +232,134 @@ nav div {
   text-align: left;
 }
 
-@media (max-width: 740px) {
-  .headline-ccc {
-    font-size: 1rem !important;
-    letter-spacing: 0px !important;
-    margin: 0 !important;
-  }
-  .current {
-    font-size: 1.5rem !important;
-    margin-top: 4vh;
-  }
-  .btn-row {
+            @media (max-width: 740px) {
+              .headline-ccc {
+                display: none;
+              }
+              .current {
+                font-size: 5rem !important;
+                margin-top: 4vh;
+                font-family: sans-serif;
+              }
+              .btn-row {
+              border: solid black 1px;
+              border-radius: 12px;
+              height: 44px;
+              width: 88px !important;
+              font-size: 1rem !important;
+              font-family: Arial, Helvetica, sans-serif;
+              width: unset;
+              margin-bottom: 12px;
+              }
+              #warning {
+                text-align: center;
+                font-size: .8rem !important;
+              }
+              nav div {
+                font-size: .5rem !important;
+                margin: 6px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+              }
+              nav {
+                display: none;
+              }
+              .tltip-con {
+                display: none;
+              }
+              .start-calibrating button {
+                height: 3rem !important;
+              }
+              .start-calibrating {
+                position: fixed;
+                bottom: 5vh;
+                left: 0;
+                right: 0;
+              }
+              #calibrate, #stop-calibrating, #distance, #speed, #preset {
+                margin: 0;
+                height: 36px;
+                white-space: nowrap;
+              }
+              .calibrating-info {
+                font-size: .9rem !important;
+                position: fixed;
+                bottom: 2vh;
+                left: 0;
+                right: 0;
+                color: red !important;
+              }
+              .advanced input {
+                border: none;
+              }
+              #stop-calibrating {
+                height: 36px !important;
+              }
+              #calibrate {
+                width: unset !important;
+              }
+            }
+.advanced {
+  margin-top: 5vh;
+  display: none;
+}
+.advanced input {
+  border-radius: 10px;
+  width: 144px;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+.advanced input::placeholder {
+  font-size: 1rem;
+}
+.advanced button {
+  width: unset;
+}
+
+#calibrate:focus,
+#preset:focus {
+  animation: button-focus .5s both ease-in-out;
+}
+
+.start-calibrating {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+.start-calibrating button {
   border: solid black 1px;
   border-radius: 12px;
-  height: 36px;
-  width: 104px;
-  font-size: 1rem !important;
+  height: 55px;
+  font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  }
-  #warning {
-    text-align: center;
-    font-size: .8rem !important;
-  }
-  nav div {
-    font-size: .5rem !important;
-    margin: 6px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  nav {
-    position: fixed;
-    bottom: 0;
-  }
+  cursor: pointer;
+  transition: all .2s;
+  padding-inline: 12px;
+}
+.calibrating-info {
+  display: none;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+  color: rgb(197, 138, 138);
+  font-weight: bold;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  animation: note 5s both ease-in-out;
+}
+#stop-calibrating {
+  border: solid black 1px;
+  border-radius: 12px;
+  height: 55px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: all .2s;
+  padding-inline: 12px;
+  margin-right: 44px;
+}
+#preset {
+  margin-left: 12px;
+  padding-inline: 24px;
 }
 </style>
 </head>
@@ -273,12 +384,28 @@ nav div {
       </div>
       <div>
         <button onclick="gright()" class="btn-row" id="plusfivebtn">+ 5</button>
-      </div>
-      
+      </div>     
     </div>
     <div class="slidecontainer">
       <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
     </div>
+
+<div class="start-calibrating"><button>Advanced</button></div>
+
+    <div class="button-container advanced">
+      <div>
+        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
+      </div>
+      <div>
+        <button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
+      </div>
+      <input type="number" id="distance" placeholder="Distance (m)">
+      <input type="number" id="speed" placeholder="Speed (rel)">
+      <div>
+        <button onclick="preset()" class="btn-row" id="preset">RUN</button>
+      </div>
+    </div>
+    <div class="calibrating-info"><div>(i) Make sure the Cable Cam is positioned at the bottom end of the line.</div></div>
     <div class="tltip-con">
       <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
       <div class="tltip-con-content"><b>Back</b> = y</div>
@@ -286,7 +413,7 @@ nav div {
       <div class="tltip-con-content"><b>Full</b> = x</div>
       <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
     </div>
-    <div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>
+    <!--<div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>-->
   </main>
 <div class="quarterspace"></div>
   <nav>
@@ -297,6 +424,10 @@ nav div {
   <script>
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
+
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
     
     function updateCurrentValue() {
       currentDiv.textContent = slider.value;
@@ -355,7 +486,38 @@ nav div {
           slider.value = -99;
           updateCurrentValue();}
     }
+
+    function preset(){
+    const meters = document.getElementById("distance").value;
+    const pwm = document.getElementById("speed").value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/meters?=${meters}=${pwm}=`, true);
+            xhr.send();
+    }
     
+    function cal(){
+        const m = 50;
+        slider.value = 50;
+        updateCurrentValue();
+        const start = Date.now();
+        const interval = setInterval(() => {
+        if (slider.value == 0) {
+            const end = Date.now();
+            const duration = end - start; 
+            clearInterval(interval); 
+            console.log(duration);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/dur?=${duration}=${m}=`, true);
+            xhr.send();
+        }
+    }, 100);
+}
+    
+    
+    function calib(){
+        setTimeout(cal, 0);
+    }
+
       document.addEventListener('keydown', function(event) {
           if (event.key === 'y') {
             ofull();
@@ -379,7 +541,7 @@ nav div {
         const value = slider.value;
         if (value != revalue) {
           const xhr = new XMLHttpRequest();
-          xhr.open('GET', `/?value=${value}`, true);
+          xhr.open('GET', `/value?=${value}=`, true);
           xhr.send();
           revalue = value;
         }
@@ -388,29 +550,37 @@ nav div {
     });
   </script>
 
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      const tltipConElements = document.querySelectorAll('.tltip-con');
-      tltipConElements.forEach(element => {
-        element.style.display = 'none';
-      });
+  // Select the button, the advanced section, and the calibrating info div
+  const startCalibratingButton = document.querySelector('.start-calibrating');
+  const advancedSection = document.querySelector('.advanced');
+  const calibratingInfo = document.querySelector('.calibrating-info');
 
-      // Apply padding-left and padding-right of 2.5vw to .slidecontainer
-      const slideContainer = document.querySelector('.slidecontainer');
-      if (slideContainer) {
-        slideContainer.style.paddingLeft = '2.5vw';
-        slideContainer.style.paddingRight = '2.5vw';
-      }
-
-      // Apply font size of 8rem to .current
-      const currentElement = document.querySelector('.current');
-      if (currentElement) {
-        currentElement.style.fontSize = '8rem';
-      }
-    }
+  // Add a click event listener to the button
+  startCalibratingButton.addEventListener('click', () => {
+      // Display the advanced section as flex
+      advancedSection.style.display = 'flex';
+      
+      // Display the calibrating info div
+      calibratingInfo.style.display = 'flex';
+      
+      // Hide the start-calibrating button
+      startCalibratingButton.style.display = 'none';
   });
 </script>
+
+<script>
+  document.getElementById('stop-calibrating').addEventListener('click', function() {
+      const button = this;
+      button.textContent = 'SAVED';
+      
+      setTimeout(function() {
+          button.textContent = 'STOP';
+      }, 3000); // Change text back to 'STOP' after 2 seconds
+  });
+</script>
+
+
 </body>
 </html>
