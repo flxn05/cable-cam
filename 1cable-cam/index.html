@@ -18,41 +18,51 @@
     <!--<button class="advanced-btn">Advanced</button>-->
 
     <div class="advanced-section">
-      <p>Calibration<br><br></p>
+      <p>Calibration<br></p>
 <div class="cali-section">
       <div>
-        <label for="rope_length">Rope Length</label>
-        <input type="number" id="rope_length" placeholder="l [m]">
-      </div>
-
-      <div>
-        <label for="calibrate">Start Calibrating</label>
-        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
+        <label for="rope_length">Rope Length [m]</label>
+        <input type="number" id="rope_length" placeholder="lenght [m]" value="40">
       </div>
 
       <div>
         <label for="calibration_speed">Calibration Speed</label>
-        <input type="text" placeholder="v [rel]" id="calibration_speed">
+        <input type="number" placeholder="speed [rel]" id="calibration_speed" value="80">
+      </div>
+      <div>
+        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
       </div>
 
       <div>
-        <label for="stop-calibrating">STOP</label>
         <button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
       </div>
 
 </div>
-<p>Preset<br><br></p>
+<p>Preset<br></p>
 <div class="go-section">
  
-      <input type="number" placeholder="start with extra seconds...">
+  <div>
+      <label for="extra">Acc. Time [s]</label>
+      <input type="number" placeholder="acc. [s]" id="extra" value="1">
+  </div>
 
-      <input type="number" id="distance" placeholder="Distance (m)">
+  <div>
+      <label for="distance">Run Distance [m]</label>
+      <input type="number" id="distance" placeholder="dist. [m]">
+  </div>
 
-      <input type="number" id="speed" placeholder="Speed (rel)">
-      
+  <div>
+    <label for="speed">Preset Speed</label>
+      <input type="number" id="speed" placeholder="speed [rel]">
+  </div>
+      <div></div>
       <button onclick="preset()" class="btn-row" id="preset">RUN</button>
+      <div></div>
     </div>
     </div>
+
+    <div class="current"></div>
+
     <div class="button-container">
       <div>
         <button onclick="gleft()" class="btn-row-c" id="minusfivebtn">- 5</button>
@@ -83,8 +93,6 @@
       <div class="tltip-con-content"><b>Full</b> = x</div>
       <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
     </div>
-
-    <div class="current"></div>
 
   </main>
 <div class="quarterspace"></div>
