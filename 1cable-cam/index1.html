@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="data:">
+<link rel="icon" type="image/x-icon" href="favicon-cc.png">
+<title>Cable Cam Control</title>
+</head>
+<body>
+  <main>
+    <div class="container-flex">
+      <p class="headline-ccc">Cable Cam Control</p>
+      <div class="current"></div>
+    </div>
+    <div class="button-container">
+      <div>
+        <button onclick="gleft()" class="btn-row" id="minusfivebtn">- 5</button>
+      </div>
+      <div>
+        <button onclick="ofull()" class="btn-row" id="back-btn">&#8672; Back</button>
+      </div>
+      <div>
+        <button onclick="stop()" class="btn-row" id="stop-btn"><b>STOP</b></button>
+      </div>
+      <div>
+        <button onclick="full()" class="btn-row" id="full-btn">Full &#8674;</button>
+      </div>
+      <div>
+        <button onclick="gright()" class="btn-row" id="plusfivebtn">+ 5</button>
+      </div>     
+    </div>
+    <div class="slidecontainer">
+      <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
+    </div>
+
+<div class="start-calibrating"><button>Advanced</button></div>
+
+    <div class="button-container advanced">
+      <div>
+        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
+      </div>
+      <div>
+        <button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
+      </div>
+      <input type="number" id="distance" placeholder="Distance (m)">
+      <input type="number" id="speed" placeholder="Speed (rel)">
+      <input type="number" id="calibration_speed" placeholder="Calibration-Speed (rel)">
+      <input type="number" id="rope_length" placeholder="Ropelength in m">
+      <input type="number" id="acceleration_time" placeholder="Accelerationtime in s">
+      <div>
+        <button onclick="preset()" class="btn-row" id="preset">RUN</button>
+      </div>
+    </div>
+    <div class="calibrating-info"><div>(i) Make sure the Cable Cam is positioned at the bottom end of the line.</div></div>
+    <div class="tltip-con">
+      <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
+      <div class="tltip-con-content"><b>Back</b> = y</div>
+      <div class="tltip-con-content"><b>STOP</b> = [spacebar]</div>
+      <div class="tltip-con-content"><b>Full</b> = x</div>
+      <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
+    </div>
+    <!--<div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>-->
+  </main>
+<div class="quarterspace"></div>
+  <nav>
+    <div><b>UI DESIGN</b> FELIX NOWAK</div>
+    <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
+    <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
+  </nav>
+  <script>
+    const slider = document.getElementById('myRange');
+    const currentDiv = document.querySelector('.current');
+
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+    
+    function updateCurrentValue() {
+      currentDiv.textContent = slider.value;
+    }
+    
+    
+    function gleft(){
+          if(slider.value == 99){
+                  slider.value = Number(slider.value) -4;}
+              else{    
+              slider.value =Number(slider.value) -5;}
+          updateCurrentValue();
+      }
+    function gright(){
+          if(slider.value == -99){
+                  slider.value = Number(slider.value) +4;}
+              else{    
+              slider.value =Number(slider.value) +5;}
+          updateCurrentValue();
+      }
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'ArrowRight') {
+              if(slider.value == -99){
+                  slider.value = Number(slider.value) +4;}
+              else{    
+              slider.value =Number(slider.value) +5;}
+          updateCurrentValue();
+      }
+      });  
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'ArrowLeft') {
+              if(slider.value == 99){
+                  slider.value = Number(slider.value) -4;}
+              else{    
+              slider.value =Number(slider.value) -5;}
+          updateCurrentValue();
+      }
+      });    
+    function stop() {
+      slider.value = 0;
+      updateCurrentValue();
+    }
+    
+    function full() {
+      if(slider.value < 0){
+        alert("Don't change direction so fast");}
+      else{
+          slider.value = 99;
+          updateCurrentValue();}
+    }
+    
+    function ofull() {
+          if(slider.value > 0){
+        alert("Don't change direction so fast");}
+      else{
+          slider.value = -99;
+          updateCurrentValue();}
+    }
+
+    function preset(){
+    const meters = document.getElementById("distance").value;
+    const pwm = document.getElementById("speed").value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/meters?=${meters}=${pwm}=`, true);
+            xhr.send();
+    }
+    
+    document.getElementById("rope_length").value = 40;
+    document.getElementById("calibration_speed").value = 50;
+    document.getElementById("acceleration_time").value = 1;
+    function cal(){
+        let m = document.getElementById("rope_length").value;
+        slider.value = document.getElementById("calibration_speed").value;
+        let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
+        updateCurrentValue();
+        const start = Date.now();
+        const interval = setInterval(() => {
+        if (slider.value == 0) {
+            const end = Date.now();
+            const duration = end - start; 
+            clearInterval(interval); 
+            console.log(duration);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/dur?=${duration}=${m}=${acceleration_time}=${document.getElementById("calibration_speed").value}=`, true);
+            xhr.send();
+        }
+    }, 100);
+}
+    
+    
+    function calib(){
+        setTimeout(cal, 0);
+    }
+
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'y') {
+            ofull();
+      }
+      });
+      document.addEventListener('keydown', function(event) {
+          if (event.key === ' ') {
+               stop()    
+      }
+      });
+    slider.addEventListener('input', updateCurrentValue);
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'x') {
+             full()
+      }
+      });
+    document.addEventListener('DOMContentLoaded', (event) => {
+      updateCurrentValue();
+      let revalue = 0;
+      function sendSliderValue() {
+        const value = slider.value;
+        if (value != revalue) {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', `/value?=${value}=`, true);
+          xhr.send();
+          revalue = value;
+        }
+      }
+      setInterval(sendSliderValue, 69);
+    });
+  </script>
+
+
+<script>
+  // Select the button, the advanced section, and the calibrating info div
+  const startCalibratingButton = document.querySelector('.start-calibrating');
+  const advancedSection = document.querySelector('.advanced');
+  const calibratingInfo = document.querySelector('.calibrating-info');
+
+  // Add a click event listener to the button
+  startCalibratingButton.addEventListener('click', () => {
+      // Display the advanced section as flex
+      advancedSection.style.display = 'flex';
+      
+      // Display the calibrating info div
+      calibratingInfo.style.display = 'flex';
+      
+      // Hide the start-calibrating button
+      startCalibratingButton.style.display = 'none';
+  });
+</script>
+
+<script>
+  document.getElementById('stop-calibrating').addEventListener('click', function() {
+      const button = this;
+      button.textContent = 'SAVED';
+      
+      setTimeout(function() {
+          button.textContent = 'STOP';
+      }, 3000); // Change text back to 'STOP' after 2 seconds
+  });
+</script>
+
+
+</body>
+</html>
