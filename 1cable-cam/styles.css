@@ -1,0 +1,112 @@
+:root {
+  --red: rgba(233, 23, 51, 0.712);
+  --black: rgb(29, 29, 29);
+  --light: lightgrey;
+  --white: rgb(241, 241, 241);
+}
+
+* {
+  color: var(--white);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  text-align: center;
+}
+button {
+  color: var(--black);
+}
+
+body {
+  background-color: var(--black);
+  padding-top: 2rem;
+}
+nav, .tltip-con {
+  display: none;
+}
+.container-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 3rem;
+}
+#time {
+  font-size: .9rem;
+  font-weight: bold;
+}
+.advanced, .advanced-section {
+  position: fixed;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 33vh;
+  overflow: scroll;
+}
+.advanced-section {
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.advanced-section input {
+  display: inline-block;
+  width: 120px;
+}
+.cali-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cali-section, .go-section input {
+  position: relative;
+}
+.go-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+label {
+  position: absolute;
+  color: var(--white);
+  translate: 0 -1.5rem;
+  font-size: .75rem;
+}
+input {
+  color: var(--black);
+}
+
+
+
+.current {
+  font-size: 5rem;
+}
+.btn-row-c {
+  height: 3rem;
+  width: 10rem;
+  border-radius: 16px;
+  border: solid transparent 1px;
+  margin-block: .4rem;
+  transition: all .25s cubic-bezier(.26,.34,.35,1.59);
+  font-size: 1.25rem;
+  background-color: transparent;
+  color: var(--white);
+}
+
+.btn-row-c:focus {
+  transform: scale(1.05);
+}
+
+#minusfivebtn, #plusfivebtn {
+  border: 3px solid #0a84ff;
+}
+#back-btn {
+  border: 3px solid  orange;
+}
+#full-btn {
+  border: 3px solid green;
+}
+
+
+#stop-btn {
+  border: #ff453a 3px solid;
+}
