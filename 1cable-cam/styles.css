@@ -18,6 +18,7 @@ button {
 body {
   background-color: var(--black);
   padding-top: 40vh;
+  padding-bottom: 1rem;
 }
 nav, .tltip-con {
   display: none;
@@ -53,22 +54,25 @@ nav, .tltip-con {
   width: 120px;
 }
 .cali-section {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
   margin-bottom: 1rem;
+  gap: 6px;
 }
 .cali-section, .go-section input {
   position: relative;
 }
 .go-section {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  margin-bottom: 1rem;
+  gap: 6px;
 }
 
 label {
   position: absolute;
   color: var(--white);
-  translate: 0 -1.5rem;
+  translate: 0 -1rem;
   font-size: .75rem;
 }
 input {
@@ -113,4 +117,29 @@ input {
 .slider {
   width: 88vw;
   margin-top: 1rem;
+}
+.go-section input,
+.cali-section input {
+  width: 96px;
+  background-color: rgb(189, 189, 189);
+  border: none;
+  margin-inline: 2px;
+  border-radius: 4px;
+}
+
+#calibrate,
+#stop-calibrating,
+#preset {
+  background-color: transparent;
+  border: solid 2px #bdbdbd;
+  border-radius: 10px;
+  padding-inline: 8px;
+  color: var(--white);
+  margin-top: .5rem;
+}
+#stop-calibrating,
+#preset {
+  border: solid 2px #ff453a;
+  padding-inline: 24px;
+  transform: scale(1.1);
 }
