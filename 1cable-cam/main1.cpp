@@ -17,7 +17,6 @@ const char * html = R"rawliteral(<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="data:">
-<link rel="icon" type="image/x-icon" href="favicon-cc.png">
 <title>Cable Cam Control</title>
 </head>
 <body>
