@@ -17,7 +17,7 @@ button {
 
 body {
   background-color: var(--black);
-  padding-top: 2rem;
+  padding-top: 40vh;
 }
 nav, .tltip-con {
   display: none;
@@ -36,9 +36,9 @@ nav, .tltip-con {
   font-size: .9rem;
   font-weight: bold;
 }
-.advanced, .advanced-section {
+.advanced-section {
   position: fixed;
-  bottom: 0;
+  top: 7vh;
   left: 12px;
   right: 12px;
   height: 33vh;
@@ -78,7 +78,7 @@ input {
 
 
 .current {
-  font-size: 5rem;
+  font-size: 4.5rem;
 }
 .btn-row-c {
   height: 3rem;
@@ -109,4 +109,8 @@ input {
 
 #stop-btn {
   border: #ff453a 3px solid;
+}
+.slider {
+  width: 88vw;
+  margin-top: 1rem;
 }
