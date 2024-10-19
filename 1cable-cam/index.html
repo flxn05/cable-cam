@@ -159,11 +159,6 @@ input {
   box-shadow: 0 0 24px red;
 }
 
-
-
-
-
-
 .slider {
   width: 88vw;
   margin-top: 1rem;
@@ -186,6 +181,7 @@ input {
   padding-inline: 8px;
   color: var(--white);
   margin-top: .5rem;
+  animation: none;
 }
 #stop-calibrating,
 #preset {
@@ -481,6 +477,42 @@ updateTime();
           fullscreenButton.textContent = "full";
       }
   });
+</script>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const calibrateBtn = document.getElementById('calibrate');
+  const stopCalibratingBtn = document.getElementById('stop-calibrating');
+
+  calibrateBtn.addEventListener('click', function() {
+      calibrateBtn.textContent = "calibrating ....";
+      stopCalibratingBtn.style.display = "inline"; // Show the stop button
+  });
+
+  stopCalibratingBtn.addEventListener('click', function() {
+      stopCalibratingBtn.textContent = "SAVED";
+      calibrateBtn.textContent = "Start Calibrating";
+
+      // Wait for 2 seconds, then reset the stop button text and hide it
+      setTimeout(function() {
+          stopCalibratingBtn.textContent = "STOP";
+      }, 5000);
+  });
+});
+</script>
+
+
+<script>
+  document.getElementById("preset").onclick = function() {
+    const button = this;
+    button.textContent = "RUNNING";
+    setTimeout(function() {
+      button.textContent = "RUN";
+    }, 3000); //instead of a fixed timespan: [calculated-preset-duration]
+  };
 </script>
 
 
