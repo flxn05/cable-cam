@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="data:">
-<link rel="icon" type="image/x-icon" href="favicon-cc.png">
 <link rel="stylesheet" href="styles.css">
 <title>Cable Cam Control</title>
 </head>
@@ -13,10 +12,8 @@
     <div class="container-flex">
       <p id="time">time</p>
       <p class="headline-ccc"><b>Cable Cam Control</b></p>
-      <p style="opacity: 0;">time</p>
+      <button id="fullscreen">full</button>
     </div>
-    <!--<button class="advanced-btn">Advanced</button>-->
-
     <div class="advanced-section">
       <p>Calibration<br></p>
 <div class="cali-section">
@@ -42,8 +39,8 @@
 <div class="go-section">
  
   <div>
-      <label for="extra">Acc. Time [s]</label>
-      <input type="number" placeholder="acc. [s]" id="extra" value="1">
+      <label for="acceleration_time">Acc. Time [s]</label>
+      <input type="number" placeholder="acc. [s]" id="acceleration_time" value="1">
   </div>
 
   <div>
@@ -84,8 +81,6 @@
       <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
     </div>
 
-
-    <!--<div class="calibrating-info"><div>(i) Make sure the Cable Cam is positioned at the bottom end of the line.</div></div>-->
     <div class="tltip-con">
       <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
       <div class="tltip-con-content"><b>Back</b> = y</div>
@@ -102,6 +97,7 @@
     <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
   </nav>
   <script>
+    //slider function and buttons
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
 
@@ -175,9 +171,13 @@
             xhr.send();
     }
     
+    document.getElementById("rope_length").value = 40;
+    document.getElementById("calibration_speed").value = 50;
+    document.getElementById("acceleration_time").value = 1;
     function cal(){
-        const m = 50;
-        slider.value = 50;
+        let m = document.getElementById("rope_length").value;
+        slider.value = document.getElementById("calibration_speed").value;
+        let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
         updateCurrentValue();
         const start = Date.now();
         const interval = setInterval(() => {
@@ -187,7 +187,7 @@
             clearInterval(interval); 
             console.log(duration);
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/dur?=${duration}=${m}=`, true);
+            xhr.open('GET', `/dur?=${duration}=${m}=${acceleration_time}=${document.getElementById("calibration_speed").value}=`, true);
             xhr.send();
         }
     }, 100);
@@ -255,7 +255,42 @@
 setInterval(updateTime, 1000);
 // Initial call to display time immediately
 updateTime();
-
 </script>
+
+
+<script>
+  const fullscreenButton = document.getElementById('fullscreen');
+
+  fullscreenButton.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+          // Enter fullscreen mode
+          document.documentElement.requestFullscreen()
+              .then(() => {
+                  fullscreenButton.textContent = "exit";
+              })
+              .catch(err => {
+                  console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+              });
+      } else {
+          // Exit fullscreen mode
+          document.exitFullscreen()
+              .then(() => {
+                  fullscreenButton.textContent = "full";
+              })
+              .catch(err => {
+                  console.error(`Error attempting to exit full-screen mode: ${err.message}`);
+              });
+      }
+  });
+
+  // Optional: If user presses the ESC key or exits fullscreen via other methods, update the button
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fullscreenButton.textContent = "full";
+      }
+  });
+</script>
+
+
 </body>
 </html>
