@@ -185,7 +185,7 @@ input {
 
       <div>
         <label for="calibration_speed">Calibration Speed</label>
-        <input type="number" placeholder="speed [rel]" id="calibration_speed" value="80">
+        <input type="number" placeholder="speed [rel]" id="calibration_speed" value="80" min="-99" max="99">
       </div>
       <div>
         <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
@@ -201,7 +201,7 @@ input {
  
   <div>
       <label for="acceleration_time">Acc. Time [s]</label>
-      <input type="number" placeholder="acc. [s]" id="acceleration_time" value="1">
+      <input type="number" placeholder="acc. [s]" id="acceleration_time" value="1" min="0">
   </div>
 
   <div>
@@ -211,7 +211,7 @@ input {
 
   <div>
     <label for="speed">Preset Speed</label>
-      <input type="number" id="speed" placeholder="speed [rel]">
+      <input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
   </div>
       <div></div>
       <button onclick="preset()" class="btn-row" id="preset">RUN</button>
