@@ -37,6 +37,16 @@ nav, .tltip-con {
   font-size: .9rem;
   font-weight: bold;
 }
+#fullscreen {
+  background-color: transparent;
+  border: rgba(222, 222, 222, 0.75) 1px solid;
+  color: rgba(222, 222, 222, 0.75);
+  border-radius: 10px;
+  padding-inline: 8px;
+  padding-top: 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
 .advanced-section {
   position: fixed;
   top: 7vh;
@@ -142,4 +152,7 @@ input {
   border: solid 2px #ff453a;
   padding-inline: 24px;
   transform: scale(1.1);
+}
+#preset {
+  border: 2px solid #0a84ff;
 }
