@@ -37,7 +37,7 @@ nav, .tltip-con {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: 12px;
   right: 12px;
   height: 3rem;
@@ -71,7 +71,15 @@ nav, .tltip-con {
 .advanced-section input {
   display: inline-block;
   width: 120px;
+  transition: all .25s ease-in-out;
 }
+.advanced-section input:focus {
+  background-color: white;
+  outline: none;
+  transform: scale(1.2);
+  border-radius: 6px;
+}
+
 .cali-section {
   display: grid;
   grid-template-columns: 2fr 2fr;
@@ -122,17 +130,40 @@ input {
 #minusfivebtn, #plusfivebtn {
   border: 3px solid #0a84ff;
 }
+#minusfivebtn:focus, #plusfivebtn:focus {
+  background-color: #0a84ff1f;
+  box-shadow: 0 0 24px #0a84ff;
+}
+
 #back-btn {
   border: 3px solid  orange;
 }
+#back-btn:focus {
+  background-color: rgba(255, 166, 0, 0.125);
+  box-shadow: 0 0 24px orange;
+}
+
 #full-btn {
   border: 3px solid green;
 }
-
+#full-btn:focus {
+  background-color: rgba(0, 128, 0, 0.125);
+  box-shadow: 0 0 24px green;
+}
 
 #stop-btn {
   border: #ff453a 3px solid;
 }
+#stop-btn:focus {
+  background-color: rgba(255, 0, 0, 0.125);
+  box-shadow: 0 0 24px red;
+}
+
+
+
+
+
+
 .slider {
   width: 88vw;
   margin-top: 1rem;
