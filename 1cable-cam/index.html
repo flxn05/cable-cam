@@ -117,46 +117,31 @@ input {
   border-radius: 16px;
   border: solid transparent 1px;
   margin-block: .4rem;
-  transition: all .25s cubic-bezier(.26,.34,.35,1.59);
   font-size: 1.25rem;
   background-color: transparent;
   color: var(--white);
 }
 
-.btn-row-c:focus {
-  transform: scale(1.05);
-}
 
 #minusfivebtn, #plusfivebtn {
   border: 3px solid #0a84ff;
 }
-#minusfivebtn:focus, #plusfivebtn:focus {
-  background-color: #0a84ff1f;
-  box-shadow: 0 0 24px #0a84ff;
-}
-
 #back-btn {
   border: 3px solid  orange;
 }
-#back-btn:focus {
-  background-color: rgba(255, 166, 0, 0.125);
-  box-shadow: 0 0 24px orange;
-}
-
 #full-btn {
   border: 3px solid green;
 }
-#full-btn:focus {
-  background-color: rgba(0, 128, 0, 0.125);
-  box-shadow: 0 0 24px green;
-}
-
 #stop-btn {
   border: #ff453a 3px solid;
 }
-#stop-btn:focus {
-  background-color: rgba(255, 0, 0, 0.125);
-  box-shadow: 0 0 24px red;
+.button-container button:focus {
+  animation: scale-down .33s both ease;
+}
+@keyframes scale-down {
+  0% {transform: scale(1);}
+  50% {transform: scale(.95);}
+  100% {transform: scale(1);}
 }
 
 .slider {
@@ -284,6 +269,7 @@ input {
     <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
     <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
   </nav>
+  
   <script>
     //slider function and buttons
     const slider = document.getElementById('myRange');
@@ -418,8 +404,6 @@ input {
     });
   </script>
 
-
-
 <script>
   //display time
 
@@ -444,7 +428,6 @@ setInterval(updateTime, 1000);
 // Initial call to display time immediately
 updateTime();
 </script>
-
 
 <script>
   const fullscreenButton = document.getElementById('fullscreen');
@@ -479,9 +462,6 @@ updateTime();
   });
 </script>
 
-
-
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const calibrateBtn = document.getElementById('calibrate');
@@ -499,11 +479,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // Wait for 2 seconds, then reset the stop button text and hide it
       setTimeout(function() {
           stopCalibratingBtn.textContent = "STOP";
-      }, 5000);
+      }, 2000);
   });
 });
 </script>
-
 
 <script>
   document.getElementById("preset").onclick = function() {
@@ -514,7 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000); //instead of a fixed timespan: [calculated-preset-duration]
   };
 </script>
-
 
 </body>
 </html>
