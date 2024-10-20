@@ -17,6 +17,7 @@ const char * html = R"rawliteral(<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="data:">
+<link rel="icon" type="image/x-icon" href="favicon-cc.png">
 <title>Cable Cam Control</title>
 </head>
 <body>
@@ -161,6 +162,7 @@ const char * html = R"rawliteral(<!doctype html>
         let m = document.getElementById("rope_length").value;
         slider.value = document.getElementById("calibration_speed").value;
         let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
+        let cal_speed = document.getElementById("calibration_speed").value;
         updateCurrentValue();
         const start = Date.now();
         const interval = setInterval(() => {
@@ -170,7 +172,7 @@ const char * html = R"rawliteral(<!doctype html>
             clearInterval(interval); 
             console.log(duration);
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/dur?=${duration}=${m}=${acceleration_time}=${document.getElementById("calibration_speed").value}=`, true);
+            xhr.open('GET', `/dur?=${duration}=${m}=${acceleration_time}=${cal_speed}=`, true);
             xhr.send();
         }
     }, 100);
@@ -298,6 +300,8 @@ void run_ms(int pwm, int length){
   Serial.println(duration_ms);
   Serial.print("Length of rope: ");
   Serial.println(meters);
+  Serial.print("Calibration PWM: ");
+  Serial.println(cal_pwm2);
   //task_duration = ((0.8*duration_ms*(100/pwm))/meters)*length;
   //Serial.println(((((100-pwm)*0.01)*2)+((100-pwm)*0.01)));
   task_duration = (((duration_ms/(100/cal_pwm2))/length)*(100/pwm))+acc_time2; 
@@ -335,6 +339,7 @@ void handleF(HTTPRequest *req, HTTPResponse *res){
 
 void handleM(HTTPRequest *req, HTTPResponse *res){
   	std::string answer = req->getRequestString();///dur?=${duration}=${m}=
+    Serial.println(answer.c_str());
     std::string dur = read_from_char(answer, '=');
     std::string dur1 = read_until_char(dur, '=');//duration
     std::string m = read_from_char(dur, '=');
@@ -343,13 +348,12 @@ void handleM(HTTPRequest *req, HTTPResponse *res){
   std::string acc_time1 = read_until_char(acc_time, '=');
   std::string cal_pwm = read_from_char(acc_time, '=');
   std::string cal_pwm1 = read_until_char(cal_pwm, '=');
-  Serial.println(ESP.getFreeHeap());
-  int acc_time2 = stoi(acc_time1);
-  int cal_pwm2 = stoi(cal_pwm1);
-    duration_ms = stoi(dur1);
-    meters = stoi(m1);
-    Serial.println(dur1.c_str());
-    Serial.println(m1.c_str());
+  acc_time2 = stoi(acc_time1);
+  cal_pwm2 = stoi(cal_pwm1);
+  duration_ms = stoi(dur1);
+  meters = stoi(m1);
+  Serial.println(dur1.c_str());
+  Serial.println(m1.c_str());
 }
 
 void setup(){
