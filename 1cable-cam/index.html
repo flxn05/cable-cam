@@ -199,19 +199,19 @@ input {
 <div class="cali-section">
       <div>
         <label for="rope_length">Rope Length [m]</label>
-        <input type="number" id="rope_length" placeholder="lenght [m]" value="40">
+
       </div>
 
       <div>
         <label for="calibration_speed">Calibration Speed</label>
-        <input type="number" placeholder="speed [rel]" id="calibration_speed" value="80" min="-99" max="99">
+        
       </div>
       <div>
-        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
+        
       </div>
 
       <div>
-        <button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
+  
       </div>
 
 </div>
@@ -220,26 +220,38 @@ input {
  
   <div>
       <label for="acceleration_time">Acc. Time [s]</label>
-      <input type="number" placeholder="acc. [s]" id="acceleration_time" value="1" min="0">
+      
   </div>
 
   <div>
       <label for="distance">Run Distance [m]</label>
-      <input type="number" id="distance" placeholder="dist. [m]">
+      
   </div>
 
   <div>
     <label for="speed">Preset Speed</label>
-      <input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
+      
   </div>
   </div>
   <div class="preset-con">
 
       </div>
     </div>
+<!--CONTENT HERE ALL INPUTS AND BUTTONS!!!!!-->
+<input type="number" id="rope_length" placeholder="lenght [m]" value="40">
+<input type="number" placeholder="speed [rel]" id="calibration_speed" value="80" min="-99" max="99">
+<button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
+<button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
+<input type="number" placeholder="acc. [s]" id="acceleration_time" value="1" min="0">
+<input type="number" id="distance" placeholder="dist. [m]">
 
+<input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
+<button onclick="preset()" class="btn-row" id="preset">RUN</button>
+
+
+<!--CONTENT HERE ALL INPUTS AND BUTTONS!!!!!-->
     <div class="current"></div>
-    <button onclick="preset()" class="btn-row" id="preset">RUN</button>
+
     <div class="button-container">
       <div>
         <button onclick="gleft()" class="btn-row-c" id="minusfivebtn">- 5</button>
@@ -277,7 +289,7 @@ input {
     <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
   </nav>
 
-      <script>
+  <script>
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
 
@@ -344,7 +356,6 @@ input {
     }
 
     function preset(){
-    console.log("Preset");
     const meters = document.getElementById("distance").value;
     let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
     const pwm = document.getElementById("speed").value;
@@ -369,7 +380,7 @@ input {
             clearInterval(interval); 
             console.log(duration);
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/dur?{duration}=${m}=${cal_speed}=`, true);
+            xhr.open('GET', `/dur?=${duration}=${m}=${cal_speed}=`, true);
             xhr.send();
         }
     }, 100);
@@ -411,96 +422,36 @@ input {
       setInterval(sendSliderValue, 69);
     });
   </script>
-  
+
 
 <script>
-  //display time
+  // Select the button, the advanced section, and the calibrating info div
+  const startCalibratingButton = document.querySelector('.start-calibrating');
+  const advancedSection = document.querySelector('.advanced');
+  const calibratingInfo = document.querySelector('.calibrating-info');
 
-  function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    // Convert to 12-hour format
-    const period = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12; // Convert 0 to 12 for midnight
-
-    // Format minutes to always be two digits
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
-    // Display the current time
-    document.getElementById('time').innerText = `${hours}:${formattedMinutes} ${period}`;
-}
-
-// Update time every minute
-setInterval(updateTime, 1000);
-// Initial call to display time immediately
-updateTime();
-</script>
-
-<script>
-  const fullscreenButton = document.getElementById('fullscreen');
-
-  fullscreenButton.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-          // Enter fullscreen mode
-          document.documentElement.requestFullscreen()
-              .then(() => {
-                  fullscreenButton.textContent = "exit";
-              })
-              .catch(err => {
-                  console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-              });
-      } else {
-          // Exit fullscreen mode
-          document.exitFullscreen()
-              .then(() => {
-                  fullscreenButton.textContent = "full";
-              })
-              .catch(err => {
-                  console.error(`Error attempting to exit full-screen mode: ${err.message}`);
-              });
-      }
-  });
-
-  // Optional: If user presses the ESC key or exits fullscreen via other methods, update the button
-  document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) {
-          fullscreenButton.textContent = "full";
-      }
+  // Add a click event listener to the button
+  startCalibratingButton.addEventListener('click', () => {
+      // Display the advanced section as flex
+      advancedSection.style.display = 'flex';
+      
+      // Display the calibrating info div
+      calibratingInfo.style.display = 'flex';
+      
+      // Hide the start-calibrating button
+      startCalibratingButton.style.display = 'none';
   });
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const calibrateBtn = document.getElementById('calibrate');
-  const stopCalibratingBtn = document.getElementById('stop-calibrating');
-
-  calibrateBtn.addEventListener('click', function() {
-      calibrateBtn.textContent = "calibrating ....";
-      stopCalibratingBtn.style.display = "inline"; // Show the stop button
-  });
-
-  stopCalibratingBtn.addEventListener('click', function() {
-      stopCalibratingBtn.textContent = "SAVED";
-      calibrateBtn.textContent = "Start Calibrating";
-
-      // Wait for 2 seconds, then reset the stop button text and hide it
+  document.getElementById('stop-calibrating').addEventListener('click', function() {
+      const button = this;
+      button.textContent = 'SAVED';
+      
       setTimeout(function() {
-          stopCalibratingBtn.textContent = "STOP";
-      }, 2000);
+          button.textContent = 'STOP';
+      }, 3000); // Change text back to 'STOP' after 2 seconds
   });
-});
-</script>
-
-<script>
-  document.getElementById("preset").onclick = function() {
-    const button = this;
-    button.textContent = "RUNNING";
-    setTimeout(function() {
-      button.textContent = "RUN";
-    }, 3000); //instead of a fixed timespan: [calculated-preset-duration]
-  };
 </script>
 
 </body>
