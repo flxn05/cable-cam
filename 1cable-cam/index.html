@@ -176,6 +176,13 @@ input {
 }
 #preset {
   border: 2px solid #0a84ff;
+  width: 33vw;
+}
+
+.preset-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
 
@@ -225,10 +232,10 @@ input {
     <label for="speed">Preset Speed</label>
       <input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
   </div>
-      <div></div>
+  </div>
+  <div class="preset-con">
       <button onclick="preset()" class="btn-row" id="preset">RUN</button>
-      <div></div>
-    </div>
+      </div>
     </div>
 
     <div class="current"></div>
@@ -269,9 +276,8 @@ input {
     <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
     <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
   </nav>
-  
-  <script>
-    //slider function and buttons
+
+      <script>
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
 
@@ -338,10 +344,12 @@ input {
     }
 
     function preset(){
+    console.log("Preset");
     const meters = document.getElementById("distance").value;
+    let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
     const pwm = document.getElementById("speed").value;
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/meters?=${meters}=${pwm}=`, true);
+            xhr.open('GET', `/meters?=${meters}=${pwm}=${acceleration_time}=`, true);
             xhr.send();
     }
     
@@ -351,7 +359,7 @@ input {
     function cal(){
         let m = document.getElementById("rope_length").value;
         slider.value = document.getElementById("calibration_speed").value;
-        let acceleration_time = (document.getElementById("acceleration_time").value)*1000;
+        let cal_speed = document.getElementById("calibration_speed").value;
         updateCurrentValue();
         const start = Date.now();
         const interval = setInterval(() => {
@@ -361,7 +369,7 @@ input {
             clearInterval(interval); 
             console.log(duration);
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/dur?=${duration}=${m}=${acceleration_time}=${document.getElementById("calibration_speed").value}=`, true);
+            xhr.open('GET', =$`/dur?{duration}=${m}=${cal_speed}=`, true);
             xhr.send();
         }
     }, 100);
@@ -403,6 +411,7 @@ input {
       setInterval(sendSliderValue, 69);
     });
   </script>
+  
 
 <script>
   //display time
