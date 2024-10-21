@@ -234,7 +234,7 @@ input {
   </div>
   </div>
   <div class="preset-con">
-      <button onclick="preset()" class="btn-row" id="preset">RUN</button>
+
       </div>
     </div>
 
@@ -369,7 +369,7 @@ input {
             clearInterval(interval); 
             console.log(duration);
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/dur?=${duration}=${m}=${cal_speed}=`, true);
+            xhr.open('GET', `/dur?{duration}=${m}=${cal_speed}=`, true);
             xhr.send();
         }
     }, 100);
