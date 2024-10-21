@@ -199,19 +199,19 @@ input {
 <div class="cali-section">
       <div>
         <label for="rope_length">Rope Length [m]</label>
-
+        <input type="number" id="rope_length" placeholder="lenght [m]" value="40">
       </div>
 
       <div>
         <label for="calibration_speed">Calibration Speed</label>
-        
+        <input type="number" placeholder="speed [rel]" id="calibration_speed" value="80" min="-99" max="99">
       </div>
       <div>
-        
+        <button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
       </div>
 
       <div>
-  
+        <button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
       </div>
 
 </div>
@@ -220,33 +220,33 @@ input {
  
   <div>
       <label for="acceleration_time">Acc. Time [s]</label>
-      
+      <input type="number" placeholder="acc. [s]" id="acceleration_time" value="1" min="0">
   </div>
 
   <div>
       <label for="distance">Run Distance [m]</label>
-      
+      <input type="number" id="distance" placeholder="dist. [m]">
   </div>
 
   <div>
     <label for="speed">Preset Speed</label>
-      
+    <input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
   </div>
   </div>
   <div class="preset-con">
-
+    <button onclick="preset()" class="btn-row" id="preset">RUN</button>
       </div>
     </div>
 <!--CONTENT HERE ALL INPUTS AND BUTTONS!!!!!-->
-<input type="number" id="rope_length" placeholder="lenght [m]" value="40">
-<input type="number" placeholder="speed [rel]" id="calibration_speed" value="80" min="-99" max="99">
-<button onclick="calib()" class="btn-row" id="calibrate">Start Calibrating</button>
-<button onclick="stop()" id="stop-calibrating"><b>STOP</b></button>
-<input type="number" placeholder="acc. [s]" id="acceleration_time" value="1" min="0">
-<input type="number" id="distance" placeholder="dist. [m]">
 
-<input type="number" id="speed" placeholder="speed [rel]" min="-99" max="99">
-<button onclick="preset()" class="btn-row" id="preset">RUN</button>
+
+
+
+
+
+
+
+
 
 
 <!--CONTENT HERE ALL INPUTS AND BUTTONS!!!!!-->
