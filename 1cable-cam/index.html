@@ -7,6 +7,9 @@
 <link rel="icon" type="image/x-icon" href="favicon-cc.png">
 <title>Cable Cam Control</title>
 <style text="text/css">
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .halfspace {
   margin-top: 15vh;
 }
@@ -96,6 +99,9 @@ body {
   display: flex;
   justify-content: center;
 }
+input[type="text"] {
+  margin-inline: 4px;
+}
 nav {
   text-align: center;
   position: fixed;
@@ -161,33 +167,6 @@ nav div {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.tltip-con {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15vh;
-  color: grey;
-}
-.tltip-con div {
-  margin-right: 24px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-  line-height: 2rem;
-}
-
-#warning {
-  margin-top: 5vh;
-  color: grey;
-  letter-spacing: 2px;
-  font-size: 1.125rem;
-  font-family: Arial, Helvetica, sans-serif;
-  animation: warning 10ms both 7.5s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15vh;
-}
-
 @keyframes traffic-hover {
   0% {transform: scale(1);}
   50% {transform: scale(0.97);}
@@ -216,39 +195,8 @@ nav div {
   font-style: italic;
   text-align: left;
 }
-
-@media (max-width: 740px) {
-  .headline-ccc {
-    font-size: 1rem !important;
-    letter-spacing: 0px !important;
-    margin: 0 !important;
-  }
-  .current {
-    font-size: 1.5rem !important;
-    margin-top: 4vh;
-  }
-  .btn-row {
-  border: solid black 1px;
-  border-radius: 12px;
-  height: 36px;
-  width: 104px;
-  font-size: 1rem !important;
-  font-family: Arial, Helvetica, sans-serif;
-  }
-  #warning {
-    text-align: center;
-    font-size: .8rem !important;
-  }
-  nav div {
-    font-size: .5rem !important;
-    margin: 6px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  nav {
-    position: fixed;
-    bottom: 0;
-  }
+#warningDiv {
+  color: white;
 }
 </style>
 </head>
@@ -274,34 +222,24 @@ nav div {
       <div>
         <button onclick="gright()" class="btn-row" id="plusfivebtn">+ 5</button>
       </div>
-      <div>
-         <button onclick="preset()" class="btn-row" id="preset">Losfahren</button>
-      </div>
       <input type="text" id="meter" placeholder="How wide to drive">    
       <input type="text" id="speed" placeholder="How faste to drive">
+      <input type="checkbox" id="return">
+      <label for="return">Return</label>
+      <div>
+        <button onclick="preset()" class="btn-row" id="preset">Run preset</button>
+     </div>
       
     </div>
     <div class="slidecontainer">
       <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
     </div>
-    <div class="tltip-con">
-      <div class="tltip-con-content"><b>- 5</b> = ArrowLeft</div>
-      <div class="tltip-con-content"><b>Back</b> = y</div>
-      <div class="tltip-con-content"><b>STOP</b> = [spacebar]</div>
-      <div class="tltip-con-content"><b>Full</b> = x</div>
-      <div class="tltip-con-content"><b>+ 5</b> = ArrowRight</div>
-    </div>
-    <div class="tltip-con--ineff" id="warning"><b>DO NOT CHANGE DIRECTIONS QUICKLY TO PREVENT DAMAGE!</b></div>
+    <div id="warningDiv"></div>
   </main>
-<div class="quarterspace"></div>
-  <nav>
-    <div><b>UI DESIGN</b> FELIX NOWAK</div>
-    <div><b>CONTROLLER PROGRAMMING</b> DAVID OTT</div>
-    <div><b>ELECTRONICAL ENGINEERING</b> MICHAEL DANISCH AND JONATHAN WALLASCH</div>
-  </nav>
   <script>
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
+    const warningDiv = document.getElementById('warningDiv');
     
     function updateCurrentValue() {
       currentDiv.textContent = slider.value;
@@ -347,7 +285,8 @@ nav div {
     
     function full() {
       if(slider.value < 0){
-        alert("Don't change direction so fast");}
+        warningDiv.textContent = 'dont change dir so fast';
+      }
       else{
           slider.value = 99;
           updateCurrentValue();}
@@ -355,7 +294,8 @@ nav div {
     
     function ofull() {
           if(slider.value > 0){
-        alert("Don't change direction so fast");}
+            warningDiv.textContent = 'dont change dir so fast';
+      }
       else{
           slider.value = -99;
           updateCurrentValue();}
@@ -364,8 +304,9 @@ nav div {
     function preset(){
       const meters = document.getElementById('meter').value;
       const speed = document.getElementById('speed').value;
+      const driveback = document.getElementById('return').value;
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', `/pre?=${meters}=${speed}=`, true);
+      xhr.open('GET', `/pre?=${meters}=${speed}=${driveback}=`, true);
       xhr.send();
     }
     
