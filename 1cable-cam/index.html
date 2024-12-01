@@ -29,14 +29,16 @@ body {
   margin-bottom: 5vh;
 }
 .btn-row {
+  margin-block: .4rem;
   border: solid black 1px;
   border-radius: 12px;
-  height: 55px;
-  width: 104px;
+  width: 36vw;
+  height: 3rem;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   transition: all .2s;
+  font-size: 1.4rem;
 }
 #stop-btn {
   background-color: rgb(255, 0, 0);
@@ -93,14 +95,22 @@ body {
   cursor: pointer;
   border-color: white;
 }
-.inputcontainer {
-  display: flex;
-  justify-content: center;
-}
 input[type="text"] {
   margin-inline: 4px;
+  width: 36vw;
+  height: 2rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid darkred;
+  margin-bottom: 1rem;
+  transition: all .15s;
+  color: red;
+  text-align: center;
 }
-/* :focus */
+input[type="checkbox"] {
+  accent-color: red;
+}
+
 .btn-row:focus {
   animation: traffic-hover .4s forwards;
   font-weight: bold;
@@ -125,7 +135,10 @@ input[type="text"] {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px #00418b solid;
 }
-/* /:hover */
+input[type="text"]:focus {
+  outline: none;
+  border-bottom: 1px solid red;
+}
 .headline-ccc {
   font-size: 1.75rem;
   font-weight: bold;
@@ -141,21 +154,15 @@ input[type="text"] {
 
 .current {
   font-size: 8rem;
-  font-weight: bold;
-  color: grey;
-  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 10;
 }
 
 @keyframes traffic-hover {
   0% {transform: scale(1);}
   50% {transform: scale(0.97);}
   100% {transform: scale(1);}
-}
-@keyframes warning {
-  /*0% {display: flex;}
-  100% {display: none;}*/
-  0% {opacity: 1;}
-  100% {opacity: 0; display: none;}
 }
 .headline {
   font-family: Arial, Helvetica, sans-serif;
@@ -176,6 +183,9 @@ input[type="text"] {
 }
 #warningDiv {
   color: white;
+  text-align: center;
+  margin-top: 4rem;
+  text-shadow: 0 0 1rem white;
 }
 </style>
 </head>
@@ -268,7 +278,7 @@ input[type="text"] {
     
     function full() {
       if(slider.value < 0){
-        warningDiv.textContent = 'dont change dir so fast';
+        warningDiv.textContent = 'stop before changing direction.';
       }
       else{
           slider.value = 99;
@@ -277,7 +287,7 @@ input[type="text"] {
     
     function ofull() {
           if(slider.value > 0){
-            warningDiv.textContent = 'dont change dir so fast';
+            warningDiv.textContent = 'stop before changing direction.';
       }
       else{
           slider.value = -99;
