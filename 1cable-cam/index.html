@@ -192,7 +192,7 @@ input[type="text"]:focus {
 <body>
   <main>
     <div class="container-flex">
-      <p class="headline-ccc">Cable Cam Control</p>
+      <p class="headline-ccc" id="fullscreenToggle">Cable Cam Control</p>
       <div class="current"></div>
     </div>
     <div class="button-container">
@@ -333,6 +333,23 @@ input[type="text"]:focus {
       }
       setInterval(sendSliderValue, 69);
     });
+
+
+    
+    document.getElementById("fullscreenToggle").addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        // Enter fullscreen
+        document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+        });
+    } else {
+        // Exit fullscreen
+        document.exitFullscreen().catch(err => {
+            console.error(`Error attempting to exit fullscreen mode: ${err.message} (${err.name})`);
+        });
+    }
+});
+
   </script>
 
 </body>
