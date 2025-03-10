@@ -1,194 +1,277 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="data:">
-<link rel="icon" type="image/x-icon" href="favicon-cc.png">
-<title>Cable Cam Control</title>
-<style text="text/css">
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
-.halfspace {
-  margin-top: 15vh;
-}
-.quarterspace {
-  margin-top: 8vh;
-}
-body {
-  background-color: rgb(20, 20, 20);
-  padding-top: 1vh;
-  color: white;
-}
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5vh;
-}
-.btn-row {
-  margin-block: .4rem;
-  border: solid black 1px;
-  border-radius: 12px;
-  width: 36vw;
-  height: 3rem;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  transition: all .2s;
-  font-size: 1.4rem;
-}
-#stop-btn {
-  background-color: rgb(255, 0, 0);
-  transform: scale(1.025);
-}
-#full-btn {
-  background-color: rgb(0, 100, 0);
-}
-#back-btn {
-  background-color: #965a00;
-}
-#minusfivebtn,
-#plusfivebtn {
-  background-color: #00418b;
-}
-#plusfivebtn {
-  margin-right: 0;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="data:">
+  <link rel="icon" type="image/x-icon" href="favicon-cc.png">
+  <title>Cable Cam Control</title>
+  <style text="text/css">
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+      user-select: none;
+    }
 
-.slider {
-  -webkit-appearance: none;
-  height: 6px;
-  border-radius: 5px;
-  background-color: red;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  flex: 1;
-  height: 4px;
-  z-index: 1000;
-}
+    .halfspace {
+      margin-top: 15vh;
+    }
 
-.slidecontainer {
-  display: flex;
-  padding-left: 7.5vw;
-  padding-right: 7.5vw;
-}
+    .quarterspace {
+      margin-top: 8vh;
+    }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%; 
-  background: #ffffff;
-  cursor: pointer;
-}
+    body {
+      background-color: rgb(20, 20, 20);
+      padding-top: 1vh;
+      color: white;
+    }
 
-.slider::-moz-range-thumb {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ffffff;
-  cursor: pointer;
-  border-color: white;
-}
-input[type="text"] {
-  margin-inline: 4px;
-  width: 36vw;
-  height: 2rem;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid darkred;
-  margin-bottom: 1rem;
-  transition: all .33s;
-  color: red;
-  text-align: center;
-}
-input[type="checkbox"] {
-  accent-color: red;
-}
+    .first {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5vh;
+      width: 100vw;
+    }
 
-.btn-row:focus {
-  animation: traffic-hover .4s forwards;
-  font-weight: bold;
-}
-#stop-btn:focus {
-  color: red;
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px red solid;
-}
-#full-btn:focus {
-  color: green;
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px #006400 solid;
-}
-#back-btn:focus {
-  color: #c98522;
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px #965a00 solid;
-}
-#plusfivebtn:focus, #minusfivebtn:focus {
-  color: rgb(25, 159, 212);
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px #00418b solid;
-}
-input[type="text"]:focus {
-  outline: none;
-  border-bottom: 1px solid red;
-}
-.headline-ccc {
-  font-size: 1.75rem;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: -2.25px;
-  color: red;
-}
-.container-flex {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
+    .btn-row {
+      margin-block: 2px;
+      border: solid black 1px;
+      border-radius: 12px;
+      width: 36vw;
+      height: 3rem;
+      font-family: Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      transition: all .2s;
+      font-size: 1.4rem;
+    }
 
-.current {
-  font-size: 8rem;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 10;
-}
+    #stop-btn {
+      background-color: rgb(255, 0, 0);
+      transform: scale(1.025);
+    }
 
-@keyframes traffic-hover {
-  0% {transform: scale(1);}
-  50% {transform: scale(0.97);}
-  100% {transform: scale(1);}
-}
-.headline {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 5rem;
-  letter-spacing: -5px;
-  margin-bottom: 3rem;
-  color: black;
-}
-.credits div {
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
-  margin-left: 2.5rem;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-style: italic;
-  text-align: left;
-}
-#warningDiv {
-  color: white;
-  text-align: center;
-  margin-top: 4rem;
-  text-shadow: 0 0 1rem white;
-}
-</style>
+    #full-btn {
+      background-color: rgb(0, 100, 0);
+    }
+
+    #back-btn {
+      background-color: #965a00;
+    }
+
+    #minusfivebtn,
+    #plusfivebtn {
+      background-color: #00418b;
+    }
+
+    #plusfivebtn {
+      margin-right: 0;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 5px;
+      background-color: red;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      flex: 1;
+      height: 4px;
+      z-index: 1000;
+    }
+
+    .slidecontainer {
+      display: flex;
+      padding-left: 7.5vw;
+      padding-right: 7.5vw;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      border-color: white;
+    }
+
+    input[type="text"] {
+      margin-inline: 4px;
+      width: 36vw;
+      height: 2rem;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid darkred;
+      margin-bottom: 1rem;
+      transition: all .33s;
+      color: red;
+      text-align: center;
+    }
+
+    input[type="checkbox"] {
+      accent-color: red;
+    }
+
+    .btn-row:focus {
+      animation: traffic-hover .4s forwards;
+      font-weight: bold;
+    }
+
+    #stop-btn:focus {
+      color: red;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px red solid;
+    }
+
+    #full-btn:focus {
+      color: green;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px #006400 solid;
+    }
+
+    #back-btn:focus {
+      color: #c98522;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px #965a00 solid;
+    }
+
+    #plusfivebtn:focus,
+    #minusfivebtn:focus {
+      color: rgb(25, 159, 212);
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px #00418b solid;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-bottom: 1px solid red;
+    }
+
+    .headline-ccc {
+      font-size: 1.25rem;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: -2.25px;
+      color: red;
+      margin-bottom: 0;
+    }
+
+    .container-flex {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .current {
+      font-size: 8rem;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 10;
+    }
+
+    @keyframes traffic-hover {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.97);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .headline {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 5rem;
+      letter-spacing: -5px;
+      margin-bottom: 3rem;
+      color: black;
+    }
+
+    .credits div {
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      margin-left: 2.5rem;
+      color: black;
+      font-family: Arial, Helvetica, sans-serif;
+      font-style: italic;
+      text-align: left;
+    }
+
+    #warningDiv {
+      color: white;
+      text-align: center;
+      margin-top: 4rem;
+      text-shadow: 0 0 1rem white;
+    }
+
+    .dis-spe-lbl-con {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      gap: 30vw;
+      color: lightgrey;
+      font-size: .8rem;
+      margin-bottom: 4px;
+      translate: 0 -12px;
+    }
+
+    @media (min-width: 800px) {
+      .headline-ccc {
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+      }
+
+      .current {
+        font-size: 144px;
+        margin-bottom: 36px;
+      }
+
+      .first {
+        flex-direction: row;
+      }
+      .secondRow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+      }
+      .secondRow button {
+        width: auto;
+      }
+
+      .btn-row {
+        width: 15vw;
+      }
+
+      input[type="text"] {
+        width: 15vw;
+      }
+
+      .dis-spe-lbl-con {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <main>
     <div class="container-flex">
@@ -196,6 +279,7 @@ input[type="text"]:focus {
       <div class="current"></div>
     </div>
     <div class="button-container">
+      <div class="first"><!--1st-->
       <div>
         <button onclick="gleft()" class="btn-row" id="minusfivebtn">- 5</button>
       </div>
@@ -211,18 +295,25 @@ input[type="text"]:focus {
       <div>
         <button onclick="gright()" class="btn-row" id="plusfivebtn">+ 5</button>
       </div>
-          <div>
-          <input type="text" id="meter" placeholder="Distance" autocomplete="off">    
-          <input type="text" id="speed" placeholder="Speed" autocomplete="off">
-          </div>
-              <div>
-             <input type="checkbox" id="return">
-              <label for="return">Correct Overdrive</label>
-             </div>
-              <div>
-                <button onclick="preset()" class="btn-row" id="preset">Run preset</button>
-            </div>
-      
+      </div><!--/1st-->
+      <div class="secondRow"><!--2nd-->
+        <div>
+          <input type="text" id="meter" placeholder="[m]" autocomplete="off">
+          <input type="text" id="speed" placeholder="[rel]" autocomplete="off">
+        </div>
+        <div class="dis-spe-lbl-con">
+          <div>dist.</div>
+          <div>speed</div>
+        </div>
+        <div>
+          <input type="checkbox" id="return">
+          <label for="return">Correct Overdrive</label>
+        </div>
+        <div>
+          <button onclick="preset()" class="btn-row" id="preset">Run preset</button>
+        </div>
+      </div><!--/2nd-->
+
     </div>
     <div class="slidecontainer">
       <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
@@ -233,68 +324,78 @@ input[type="text"]:focus {
     const slider = document.getElementById('myRange');
     const currentDiv = document.querySelector('.current');
     const warningDiv = document.getElementById('warningDiv');
-    
+
     function updateCurrentValue() {
       currentDiv.textContent = slider.value;
     }
-    
-    
-    function gleft(){
-          if(slider.value == 99){
-                  slider.value = Number(slider.value) -4;}
-              else{    
-              slider.value =Number(slider.value) -5;}
-          updateCurrentValue();
+
+
+    function gleft() {
+      if (slider.value == 99) {
+        slider.value = Number(slider.value) - 4;
       }
-    function gright(){
-          if(slider.value == -99){
-                  slider.value = Number(slider.value) +4;}
-              else{    
-              slider.value =Number(slider.value) +5;}
-          updateCurrentValue();
+      else {
+        slider.value = Number(slider.value) - 5;
       }
-      document.addEventListener('keydown', function(event) {
-          if (event.key === 'ArrowRight') {
-              if(slider.value == -99){
-                  slider.value = Number(slider.value) +4;}
-              else{    
-              slider.value =Number(slider.value) +5;}
-          updateCurrentValue();
+      updateCurrentValue();
+    }
+    function gright() {
+      if (slider.value == -99) {
+        slider.value = Number(slider.value) + 4;
       }
-      });  
-      document.addEventListener('keydown', function(event) {
-          if (event.key === 'ArrowLeft') {
-              if(slider.value == 99){
-                  slider.value = Number(slider.value) -4;}
-              else{    
-              slider.value =Number(slider.value) -5;}
-          updateCurrentValue();
+      else {
+        slider.value = Number(slider.value) + 5;
       }
-      });    
+      updateCurrentValue();
+    }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowRight') {
+        if (slider.value == -99) {
+          slider.value = Number(slider.value) + 4;
+        }
+        else {
+          slider.value = Number(slider.value) + 5;
+        }
+        updateCurrentValue();
+      }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') {
+        if (slider.value == 99) {
+          slider.value = Number(slider.value) - 4;
+        }
+        else {
+          slider.value = Number(slider.value) - 5;
+        }
+        updateCurrentValue();
+      }
+    });
     function stop() {
       slider.value = 0;
       updateCurrentValue();
     }
-    
+
     function full() {
-      if(slider.value < 0){
+      if (slider.value < 0) {
         warningDiv.textContent = 'stop before changing direction.';
       }
-      else{
-          slider.value = 99;
-          updateCurrentValue();}
-    }
-    
-    function ofull() {
-          if(slider.value > 0){
-            warningDiv.textContent = 'stop before changing direction.';
+      else {
+        slider.value = 99;
+        updateCurrentValue();
       }
-      else{
-          slider.value = -99;
-          updateCurrentValue();}
     }
 
-    function preset(){
+    function ofull() {
+      if (slider.value > 0) {
+        warningDiv.textContent = 'stop before changing direction.';
+      }
+      else {
+        slider.value = -99;
+        updateCurrentValue();
+      }
+    }
+
+    function preset() {
       const meters = document.getElementById('meter').value;
       const speed = document.getElementById('speed').value;
       const driveback = document.getElementById('return').value;
@@ -302,23 +403,23 @@ input[type="text"]:focus {
       xhr.open('GET', `/pre?=${meters}=${speed}=${driveback}=`, true);
       xhr.send();
     }
-    
-      document.addEventListener('keydown', function(event) {
-          if (event.key === 'y') {
-            ofull();
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'y') {
+        ofull();
       }
-      });
-      document.addEventListener('keydown', function(event) {
-          if (event.key === ' ') {
-               stop()    
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === ' ') {
+        stop()
       }
-      });
+    });
     slider.addEventListener('input', updateCurrentValue);
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
       if (event.key === 'x') {
-             full()
+        full()
       }
-      });
+    });
     document.addEventListener('DOMContentLoaded', (event) => {
       updateCurrentValue();
       let revalue = 0;
@@ -335,22 +436,23 @@ input[type="text"]:focus {
     });
 
 
-    
+
     document.getElementById("fullscreenToggle").addEventListener("click", () => {
-    if (!document.fullscreenElement) {
+      if (!document.fullscreenElement) {
         // Enter fullscreen
         document.documentElement.requestFullscreen().catch(err => {
-            console.error(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+          console.error(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
         });
-    } else {
+      } else {
         // Exit fullscreen
         document.exitFullscreen().catch(err => {
-            console.error(`Error attempting to exit fullscreen mode: ${err.message} (${err.name})`);
+          console.error(`Error attempting to exit fullscreen mode: ${err.message} (${err.name})`);
         });
-    }
-});
+      }
+    });
 
   </script>
 
 </body>
+
 </html>
