@@ -25,6 +25,7 @@
       background-color: rgb(20, 20, 20);
       padding-top: 1vh;
       color: white;
+      overflow: hidden;
     }
 
     .first {
@@ -232,6 +233,9 @@
       margin-bottom: 4px;
       translate: 0 -12px;
     }
+    #expandable {
+      display: none;
+    }
 
     @media (min-width: 800px) {
       .headline-ccc {
@@ -268,6 +272,18 @@
       .dis-spe-lbl-con {
         display: none;
       }
+      #expandable {
+     display: block;
+      width: 100vw;
+      height: 64px;
+      cursor: n-resize;
+      opacity: 0;
+      transition: all .33s ease;
+    }
+    #expandable:hover {
+      background-image: linear-gradient(transparent, transparent, transparent, black, transparent, transparent, transparent);
+      opacity: 1;
+    }
     }
   </style>
 </head>
@@ -315,6 +331,7 @@
       </div><!--/2nd-->
 
     </div>
+    <div id="expandable"></div>
     <div class="slidecontainer">
       <input type="range" min="-99" max="99" value="0" class="slider" id="myRange">
     </div>
@@ -450,6 +467,37 @@
         });
       }
     });
+
+//INSERTED BY CHATGPT, NOT TESTED FOR COMPABILITY YET !!
+
+    const expandable = document.getElementById("expandable");
+        let isDragging = false, startY, startHeight;
+
+        function startDrag(e) {
+            isDragging = true;
+            startY = e.clientY || e.touches[0].clientY;
+            startHeight = expandable.offsetHeight;
+            document.body.style.userSelect = "none";
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+            let newHeight = startHeight + ((e.clientY || e.touches[0].clientY) - startY);
+            expandable.style.height = `${Math.max(newHeight, 50)}px`; // Min height of 50px
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            document.body.style.userSelect = "auto";
+        }
+
+        expandable.addEventListener("mousedown", startDrag);
+        document.addEventListener("mousemove", doDrag);
+        document.addEventListener("mouseup", stopDrag);
+
+        expandable.addEventListener("touchstart", startDrag);
+        document.addEventListener("touchmove", doDrag);
+        document.addEventListener("touchend", stopDrag);
 
   </script>
 
