@@ -124,6 +124,8 @@
 
     input[type="checkbox"] {
       accent-color: red;
+      transform: scale(1.75);
+      margin-right: 8px;
     }
 
     .btn-row:focus {
@@ -168,6 +170,7 @@
       letter-spacing: -2.25px;
       color: red;
       margin-bottom: 0;
+      margin-left: 18px;
     }
 
     .container-flex {
@@ -181,6 +184,9 @@
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-weight: 10;
+    }
+    .nomobile {
+      display: none;
     }
 
     @keyframes traffic-hover {
@@ -238,6 +244,9 @@
     }
 
     @media (min-width: 800px) {
+      .nomobile {
+      display: block;
+    }
       .headline-ccc {
         font-size: 1.8rem;
         margin-bottom: 24px;
@@ -274,16 +283,25 @@
       }
       #expandable {
      display: block;
-      width: 100vw;
       height: 64px;
-      cursor: n-resize;
-      opacity: 0;
       transition: all .33s ease;
     }
-    #expandable:hover {
-      background-image: linear-gradient(transparent, transparent, transparent, black, transparent, transparent, transparent);
-      opacity: 1;
     }
+    .headcon {
+      display: flex;
+      width: 100vw;
+      justify-content: center;
+      align-items: center;
+    }
+    .headcon button {
+      background-color: black;
+      color: lightgray;
+      border: none;
+      height: calc(1rem + 8px);
+      width: 44px;
+      border-radius: 4px;
+      margin-inline: 2px;
+      translate: -10vw;
     }
   </style>
 </head>
@@ -291,7 +309,12 @@
 <body>
   <main>
     <div class="container-flex">
-      <p class="headline-ccc" id="fullscreenToggle">Cable Cam Control</p>
+      <div class="headcon">
+        <button class="nomobile resize" onclick="moveBar0()">Reset</button>
+        <button class="nomobile resize" onclick="moveBar20()">Move</button>
+        <button class="nomobile resize" onclick="moveBarBot()">Down</button>
+        <p class="headline-ccc" id="fullscreenToggle">Cable Cam Control</p>
+      </div>
       <div class="current"></div>
     </div>
     <div class="button-container">
@@ -468,37 +491,19 @@
       }
     });
 
-//INSERTED BY CHATGPT, NOT TESTED FOR COMPABILITY YET !!
-
-    const expandable = document.getElementById("expandable");
-        let isDragging = false, startY, startHeight;
-
-        function startDrag(e) {
-            isDragging = true;
-            startY = e.clientY || e.touches[0].clientY;
-            startHeight = expandable.offsetHeight;
-            document.body.style.userSelect = "none";
-        }
-
-        function doDrag(e) {
-            if (!isDragging) return;
-            let newHeight = startHeight + ((e.clientY || e.touches[0].clientY) - startY);
-            expandable.style.height = `${Math.max(newHeight, 50)}px`; // Min height of 50px
-        }
-
-        function stopDrag() {
-            isDragging = false;
-            document.body.style.userSelect = "auto";
-        }
-
-        expandable.addEventListener("mousedown", startDrag);
-        document.addEventListener("mousemove", doDrag);
-        document.addEventListener("mouseup", stopDrag);
-
-        expandable.addEventListener("touchstart", startDrag);
-        document.addEventListener("touchmove", doDrag);
-        document.addEventListener("touchend", stopDrag);
-
+  function moveBar0() {
+    document.getElementById('expandable').style.height = '64px';
+    slider.style.position = 'static';
+  }
+  function moveBar20() {
+    document.getElementById('expandable').style.height = '20vh';
+  }
+  function moveBarBot() {
+    slider.style.position = 'fixed';
+    slider.style.bottom = '64px';
+    slider.style.left = '44px';
+    slider.style.right = '44px';
+  }
   </script>
 
 </body>
